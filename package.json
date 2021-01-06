@@ -1,0 +1,23 @@
+{
+  "name": "trace-client-js",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:dev": "webpack --config ./webpack.config.js",
+    "build:prod": "webpack --env.production --config ./webpack.config.js",
+    "build:watch": "webpack --config ./webpack.config.js --watch",
+    "start": "yarn build:watch",
+    "public": "./node_modules/.bin/http-server ./public -p 9000"
+  },
+  "dependencies": {
+    "socket.io-client": "^3.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "http-server": "^0.12.3",
+    "prettier": "^2.1.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
