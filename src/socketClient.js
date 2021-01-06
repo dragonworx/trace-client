@@ -2,7 +2,7 @@ const io = require('socket.io-client');
 
 const SERVER_HOST = 'localhost';
 const SERVER_PORT = 3000;
-const FLUSH_INTERVAL = 250;
+const FLUSH_INTERVAL = 1000;
 const RECONNECTION_DELAY = 350;
 
 // todo...remove only for alpha
@@ -69,10 +69,12 @@ class SocketClient {
     log('yellow', 'data! ' + JSON.stringify(data));
   }
 
-  push(namespace, args) {
+  push(type, data) {
     const message = {
-      namespace,
-      args,
+      id: this.socket.id,
+      sentAt: Date.now(),
+      type,
+      data,
     };
     log('orange', 'push! ' + JSON.stringify(message));
     this.buffer.push(message);
@@ -81,14 +83,7 @@ class SocketClient {
   flush() {
     log('pink', 'flush! ' + this.buffer.length);
 
-    const message = {
-      id: this.socket.id,
-      sentAt: Date.now(),
-      type: 'flush',
-      data: this.buffer,
-    };
-
-    this.socket.emit('message', message);
+    this.socket.emit('flush', this.buffer);
     this.buffer.length = 0;
   }
 }

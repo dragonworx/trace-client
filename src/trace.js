@@ -8,7 +8,7 @@ const socketClient = new SocketClient(options);
 
 const trace = (namespace, ...args) => {
   if (options.enabled) {
-    socketClient.push(namespace, args);
+    socketClient.push('message', { namespace, args });
   }
 };
 
