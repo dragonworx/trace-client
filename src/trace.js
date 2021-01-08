@@ -4,12 +4,36 @@ const options = {
   enabled: true,
 };
 
-const socketClient = new SocketClient(options);
+class Emitter {
+  constructor() {
+    this.listeners = [];
+  }
 
-const trace = (namespace, ...args) => {
+  addListener(fn) {
+    this.listeners.push(fn);
+  }
+
+  emit(type, data) {
+    this.listeners.forEach(fn => fn(type, data));
+  }
+}
+
+const emitter = new Emitter();
+
+const socketClient = new SocketClient(emitter, options);
+function trace(namespace, ...args) {
   if (options.enabled) {
     socketClient.push('message', { namespace, args });
   }
+}
+
+trace.on = (eventType, listener) => {
+  emitter.addListener((type, data) => {
+    if (type === eventType) {
+      listener(data);
+    }
+  });
+  return trace;
 };
 
 module.exports = trace;

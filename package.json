@@ -8,7 +8,7 @@
     "build:prod": "webpack --env.production --config ./webpack.config.js",
     "build:watch": "webpack --config ./webpack.config.js --watch",
     "start": "yarn build:watch",
-    "public": "./node_modules/.bin/http-server ./public -p 9000"
+    "public": "./node_modules/.bin/http-server ./ -p 9000"
   },
   "dependencies": {
     "socket.io-client": "^3.0.4"

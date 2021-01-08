@@ -9,7 +9,7 @@ module.exports = function (env, argv) {
     devtool: 'source-map',
     output: {
       path: __dirname + '/dist',
-      filename: 'index.js',
+      filename: 'trace-client.js',
       library: 'trace',
       libraryTarget: 'umd',
       globalObject: 'this',

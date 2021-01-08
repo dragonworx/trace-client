@@ -9,11 +9,12 @@ const RECONNECTION_DELAY = 350;
 const log = (color, ...args) => console.log(`%c${args}`, `color:${color}`);
 
 class SocketClient {
-  constructor(options) {
+  constructor(emitter, options) {
+    this.emitter = emitter;
+    this.options = options;
     this.socket = undefined;
     this.isConnected = false;
     this.buffer = [];
-
     if (options.enabled) {
       this.initSocket();
     }
@@ -48,7 +49,7 @@ class SocketClient {
       type: 'connect',
     });
 
-    document.body.style.backgroundColor = 'green';
+    this.emitter.emit('connect', this.socket.id);
   }
 
   onDissConnect() {
@@ -62,7 +63,7 @@ class SocketClient {
       data: this.socket.id,
     });
 
-    document.body.style.backgroundColor = 'red';
+    this.emitter.emit('dissconnect');
   }
 
   onData(data) {
