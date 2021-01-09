@@ -23,7 +23,7 @@ const emitter = new Emitter();
 const socketClient = new SocketClient(emitter, options);
 function trace(namespace, ...args) {
   if (options.enabled) {
-    socketClient.push('message', { namespace, args });
+    socketClient.push('trace', { namespace, args });
   }
 }
 
