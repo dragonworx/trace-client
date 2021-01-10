@@ -19,8 +19,8 @@ class Emitter {
 }
 
 const emitter = new Emitter();
-
 const socketClient = new SocketClient(emitter, options);
+
 function trace(namespace, ...args) {
   if (options.enabled) {
     socketClient.push('trace', { namespace, args });
