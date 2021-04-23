@@ -23,7 +23,9 @@ const socketClient = new SocketClient(emitter, options);
 
 function trace(namespace, ...args) {
   if (options.enabled) {
-    socketClient.push('trace', { namespace, args });
+    const message = { namespace, args };
+    socketClient.push('trace', message);
+    emitter.emit('trace', message);
   }
 }
 

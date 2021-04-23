@@ -18,4 +18,5 @@ trace
   .on('dissconnect', () => {
     connectedIcon.src = 'public/img/dissconnected.png';
     socketId.innerHTML = '';
-  });
+  })
+  .on('trace', message => console.log('trace!', message));
